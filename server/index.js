@@ -2,8 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import db from './db.js';
-import { authenticateToken } from './middleware.js';
+import initSchema from './init-db.js';
+
+// Import Routes
+import authRoutes from './routes/auth.js';
+import productRoutes from './routes/products.js';
+import orderRoutes from './routes/orders.js';
+import analyticsRoutes from './routes/analytics.js';
+import financialRoutes from './routes/financial.js';
+import configRoutes from './routes/config.js';
+import autotropolisRoutes from './routes/autotropolis.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,27 +22,32 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Initialize Database on Startup
+try {
+  initSchema();
+} catch (error) {
+  console.error('Failed to initialize database:', error);
+}
+
 // Serve static files from the React app build
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // API Routes
-app.post('/api/admin/login', (req, res) => {
-  // Placeholder login
-  const { password } = req.body;
-  if (password === 'admin') {
-    // In a real app, verify against bcrypt hash in DB
-    res.json({ token: 'mock-jwt-token' });
-  } else {
-    res.status(401).json({ error: 'Invalid password' });
-  }
-});
+app.use('/api/admin', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/financial', financialRoutes);
+app.use('/api/config', configRoutes);
+app.use('/api/autotropolis', autotropolisRoutes);
 
-app.get('/api/products', (req, res) => {
+// Setup Endpoint
+app.post('/api/setup', (req, res) => {
   try {
-    const products = db.query('SELECT * FROM products');
-    res.json(products);
+    initSchema();
+    res.json({ success: true, message: 'Database schema initialized' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' });
+    res.status(500).json({ error: error.message });
   }
 });
 
