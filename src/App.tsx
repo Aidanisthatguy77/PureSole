@@ -23,6 +23,7 @@ import AdminRothIRA from './pages/admin/RothIRA';
 import AdminBlueprint from './pages/admin/Blueprint';
 import AdminAutotropolis from './pages/admin/Autotropolis';
 import AdminSettings from './pages/admin/Settings';
+import AdminAgent from './pages/admin/Agent';
 
 const App: React.FC = () => {
   return (
@@ -52,6 +53,7 @@ const App: React.FC = () => {
           <Route path="blueprint" element={<AdminBlueprint />} />
           <Route path="autotropolis" element={<AdminAutotropolis />} />
           <Route path="settings" element={<AdminSettings />} />
+          <Route path="agent" element={<AdminAgent />} />
         </Route>
       </Routes>
     </Router>

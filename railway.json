@@ -1,0 +1,11 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "numInstances": 1,
+    "startCommand": "npx vite build && node server/index.js",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 300
+  }
+}

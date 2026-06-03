@@ -12,6 +12,7 @@ import analyticsRoutes from './routes/analytics.js';
 import financialRoutes from './routes/financial.js';
 import configRoutes from './routes/config.js';
 import autotropolisRoutes from './routes/autotropolis.js';
+import agentRoutes from './routes/agent.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,6 +41,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/financial', financialRoutes);
 app.use('/api/config', configRoutes);
 app.use('/api/autotropolis', autotropolisRoutes);
+app.use('/api/agent', agentRoutes);
 
 // Setup Endpoint
 app.post('/api/setup', (req, res) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Package, ShoppingCart, BarChart3, Receipt,
-  TrendingUp, PiggyBank, LineChart, Globe, Settings, LogOut,
+  TrendingUp, PiggyBank, LineChart, Globe, Settings, Bot, LogOut,
   Menu, X, ChevronRight
 } from 'lucide-react';
 import { logout, getToken } from '../lib/auth';
@@ -18,6 +18,7 @@ const navItems = [
   { path: '/ps-admin/blueprint', label: 'Blueprint', icon: LineChart },
   { path: '/ps-admin/autotropolis', label: 'Autotropolis', icon: Globe },
   { path: '/ps-admin/settings', label: 'Settings', icon: Settings },
+  { path: '/ps-admin/agent', label: 'AI Agent', icon: Bot },
 ];
 
 const AdminLayout: React.FC = () => {
