@@ -36,8 +36,8 @@ const App: React.FC = () => {
         <Route path="/checkout" element={<><Navigation /><Checkout /></>} />
         <Route path="/order/:id" element={<><Navigation /><OrderConfirmation /></>} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={
+        {/* Admin Routes (secret path) */}
+        <Route path="/ps-admin" element={
           <ProtectedRoute>
             <AdminLayout />
           </ProtectedRoute>

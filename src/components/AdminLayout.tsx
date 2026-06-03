@@ -8,16 +8,16 @@ import {
 import { logout, getToken } from '../lib/auth';
 
 const navItems = [
-  { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { path: '/admin/products', label: 'Products', icon: Package },
-  { path: '/admin/orders', label: 'Orders', icon: ShoppingCart },
-  { path: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
-  { path: '/admin/taxes', label: 'Taxes', icon: Receipt },
-  { path: '/admin/financial', label: 'Financial', icon: TrendingUp },
-  { path: '/admin/roth-ira', label: 'Roth IRA', icon: PiggyBank },
-  { path: '/admin/blueprint', label: 'Blueprint', icon: LineChart },
-  { path: '/admin/autotropolis', label: 'Autotropolis', icon: Globe },
-  { path: '/admin/settings', label: 'Settings', icon: Settings },
+  { path: '/ps-admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { path: '/ps-admin/products', label: 'Products', icon: Package },
+  { path: '/ps-admin/orders', label: 'Orders', icon: ShoppingCart },
+  { path: '/ps-admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { path: '/ps-admin/taxes', label: 'Taxes', icon: Receipt },
+  { path: '/ps-admin/financial', label: 'Financial', icon: TrendingUp },
+  { path: '/ps-admin/roth-ira', label: 'Roth IRA', icon: PiggyBank },
+  { path: '/ps-admin/blueprint', label: 'Blueprint', icon: LineChart },
+  { path: '/ps-admin/autotropolis', label: 'Autotropolis', icon: Globe },
+  { path: '/ps-admin/settings', label: 'Settings', icon: Settings },
 ];
 
 const AdminLayout: React.FC = () => {
@@ -32,21 +32,15 @@ const AdminLayout: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/admin');
+    navigate('/ps-admin');
   };
 
   if (!getToken()) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg border border-gray-200 max-w-md w-full mx-4">
-          <h1 className="text-2xl font-bold text-black mb-4">Admin Login</h1>
-          <p className="text-gray-600 mb-6">Login required to access the admin panel.</p>
-          <a
-            href="/admin"
-            className="block w-full text-center bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
-          >
-            Go to Login
-          </a>
+          <h1 className="text-2xl font-bold text-black mb-4">Access Denied</h1>
+          <p className="text-gray-600 mb-6">You need to login first.</p>
         </div>
       </div>
     );
@@ -70,7 +64,7 @@ const AdminLayout: React.FC = () => {
       >
         <div className="p-6 border-b border-gray-800">
           <div className="flex items-center justify-between">
-            <Link to="/admin" className="flex items-center gap-2">
+            <Link to="/ps-admin" className="flex items-center gap-2">
               <LayoutDashboard className="h-5 w-5" />
               <span className="font-bold text-lg">Pure Sole Admin</span>
             </Link>
