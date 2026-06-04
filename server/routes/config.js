@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/', authenticateToken, (req, res) => {
   try {
     const config = db.query("SELECT * FROM config");
-    // Convert to object for easier use
     const configObj = config.reduce((acc, curr) => {
       acc[curr.key] = curr.value;
       return acc;
@@ -19,11 +18,15 @@ router.get('/', authenticateToken, (req, res) => {
 });
 
 router.put('/', authenticateToken, (req, res) => {
-  const updates = req.body; // Expecting { key1: value1, key2: value2 }
   try {
-    Object.entries(updates).forEach(([key, value]) => {
-      db.query(`INSERT OR REPLACE INTO config (key, value) VALUES ('${key}', '${String(value).replace(/'/g, "''")}')`);
-    });
+    // Supports both { key: 'name', value: 'val' } and { key1: val1, key2: val2 }
+    if (req.body.key && req.body.value !== undefined) {
+      db.query(`INSERT OR REPLACE INTO config (key, value) VALUES ('${req.body.key}', '${String(req.body.value).replace(/'/g, "''")}')`);
+    } else {
+      Object.entries(req.body).forEach(([key, value]) => {
+        db.query(`INSERT OR REPLACE INTO config (key, value) VALUES ('${key}', '${String(value || '').replace(/'/g, "''")}')`);
+      });
+    }
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });

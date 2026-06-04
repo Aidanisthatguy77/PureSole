@@ -24,6 +24,7 @@ import AdminBlueprint from './pages/admin/Blueprint';
 import AdminAutotropolis from './pages/admin/Autotropolis';
 import AdminSettings from './pages/admin/Settings';
 import AdminAgent from './pages/admin/Agent';
+import AdminBrands from './pages/admin/Brands';
 
 const App: React.FC = () => {
   return (
@@ -54,6 +55,7 @@ const App: React.FC = () => {
           <Route path="autotropolis" element={<AdminAutotropolis />} />
           <Route path="settings" element={<AdminSettings />} />
           <Route path="agent" element={<AdminAgent />} />
+          <Route path="brands" element={<AdminBrands />} />
         </Route>
       </Routes>
     </Router>
