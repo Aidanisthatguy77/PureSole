@@ -1,130 +1,153 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, ArrowRight, TrendingUp, Wallet, BarChart3 } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
+import { ArrowRight, ShieldCheck, Zap, Award } from 'lucide-react';
 
-const MOCK_FEATURED = [
-  { id: '1', name: 'Air Jordan 1 Retro High OG', category: 'Sneakers', price: 349.99, sizes: '7-14' },
-  { id: '2', name: 'Nike Dunk Low Retro', category: 'Sneakers', price: 279.99, sizes: '6-13' },
-  { id: '3', name: 'Champion Reverse Weave Hoodie', category: 'Apparel', price: 129.99, sizes: 'S-3XL' },
-  { id: '4', name: 'New Era 59FIFTY Cap', category: 'Accessories', price: 54.99, sizes: 'OSFM' },
+const featuredProducts = [
+  {
+    id: '1',
+    name: 'Air Jordan 1 High "Chicago"',
+    price: 1200,
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
+    category: 'Sneakers'
+  },
+  {
+    id: '2',
+    name: 'Off-White x Nike Dunk Low',
+    price: 850,
+    image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800',
+    category: 'Sneakers'
+  },
+  {
+    id: '3',
+    name: 'Supreme Box Logo Hoodie',
+    price: 600,
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800',
+    category: 'Streetwear'
+  },
+  {
+    id: '4',
+    name: 'Yeezy Boost 350 V2 "Zebra"',
+    price: 450,
+    image: 'https://images.unsplash.com/photo-1586525198428-225f6f12cff5?auto=format&fit=crop&q=80&w=800',
+    category: 'Sneakers'
+  }
 ];
 
 const Home: React.FC = () => {
   return (
-    <div>
-      {/* Disclaimer Banner */}
-      <div className="bg-gray-100 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <p className="text-xs text-gray-600 text-center leading-relaxed">
-            Pure Sole is an independent personal shopping service. We are not affiliated with Nike, Adidas, Foot Locker, 
-            or any brand. All products sourced from authorized retailers.
-          </p>
-        </div>
-      </div>
-
+    <div className="bg-white text-black">
       {/* Hero Section */}
-      <section className="bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              Premium Sneaker &<br />
-              Streetwear Service
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-              Curated, authenticated, and sourced from authorized retailers. 
-              Skip the hunt — buy with confidence from your personal boutique.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-              >
-                Shop Collection <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition"
-              >
-                Browse Collection
-              </Link>
-            </div>
+      <section className="relative h-[80vh] flex items-center justify-center border-b border-black overflow-hidden">
+        <div className="absolute inset-0 bg-gray-50 opacity-50"></div>
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 leading-none">
+            Pure Sole<br />Boutique
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl font-medium mb-10 text-gray-600 uppercase tracking-widest">
+            The ultimate operating system for sneaker and streetwear resale.
+            Authenticated. Curated. Delivered.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              to="/products" 
+              className="bg-black text-white px-10 py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-black border border-black transition-all flex items-center justify-center"
+            >
+              Shop Collection <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="bg-white py-16 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <Shield className="h-10 w-10 mx-auto mb-4 text-black" />
-              <h3 className="font-bold text-lg mb-2">Authenticity Guaranteed</h3>
-              <p className="text-gray-600 text-sm">Every product sourced from authorized retailers. No fakes, ever.</p>
-            </div>
-            <div className="text-center p-6">
-              <TrendingUp className="h-10 w-10 mx-auto mb-4 text-black" />
-              <h3 className="font-bold text-lg mb-2">Curated Collection</h3>
-              <p className="text-gray-600 text-sm">Hand-picked sneakers and streetwear you won't find everywhere.</p>
-            </div>
-            <div className="text-center p-6">
-              <BarChart3 className="h-10 w-10 mx-auto mb-4 text-black" />
-              <h3 className="font-bold text-lg mb-2">Direct From You</h3>
-              <p className="text-gray-600 text-sm">Buy from a real person building a brand, not a faceless marketplace.</p>
-            </div>
+      <section className="py-16 border-b border-black bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="flex flex-col items-center text-center">
+            <ShieldCheck className="w-12 h-12 mb-4" />
+            <h3 className="text-xl font-bold uppercase tracking-tight mb-2">100% Authentic</h3>
+            <p className="text-gray-400 text-sm">Every item is rigorously inspected by our experts before shipping.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <Zap className="w-12 h-12 mb-4" />
+            <h3 className="text-xl font-bold uppercase tracking-tight mb-2">Instant Payouts</h3>
+            <p className="text-gray-400 text-sm">Our automated financial system handles every transaction with zero friction.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <Award className="w-12 h-12 mb-4" />
+            <h3 className="text-xl font-bold uppercase tracking-tight mb-2">Curated Selection</h3>
+            <p className="text-gray-400 text-sm">Only the most sought-after grails and essential streetwear pieces.</p>
           </div>
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-bold text-black">Featured</h2>
-            <Link to="/products" className="text-sm font-medium text-gray-600 hover:text-black flex items-center gap-1">
-              View All <ArrowRight className="h-4 w-4" />
-            </Link>
+      <section className="py-20 max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl font-black uppercase tracking-tighter">Featured Drops</h2>
+            <p className="text-gray-500 uppercase text-xs tracking-widest mt-2">Hand-picked for the community</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MOCK_FEATURED.map(product => (
-              <Link
-                key={product.id}
-                to={`/product/${product.id}`}
-                className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition"
-              >
-                <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">Product Image</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{product.category}</p>
-                  <h3 className="font-semibold text-black group-hover:underline mb-1">{product.name}</h3>
-                  <p className="text-sm text-gray-500">{product.sizes}</p>
-                  <p className="text-lg font-bold text-black mt-2">${product.price.toFixed(2)}</p>
-                </div>
-              </Link>
-            ))}
+          <Link to="/products" className="text-sm font-bold uppercase border-b-2 border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-all">
+            View All
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} {...product} />
+          ))}
+        </div>
+      </section>
+
+      {/* About / Disclaimer */}
+      <section className="py-20 border-t border-black bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold uppercase tracking-tight mb-6">Our Commitment</h2>
+          <p className="text-gray-600 leading-relaxed mb-8">
+            Pure Sole is more than a store. It's a complete business engine for the modern entrepreneur. 
+            Every purchase automatically cascades through 11 integrated systems, ensuring financial health 
+            and operational excellence for our sellers, and guaranteed authenticity for our buyers.
+          </p>
+          <div className="text-[10px] text-gray-400 uppercase tracking-widest leading-loose">
+            Disclaimer: Pure Sole is an independent boutique. We are not affiliated with, endorsed by, or in any way officially connected with the brands we sell. All product names, logos, and brands are property of their respective owners.
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Wallet className="h-5 w-5" />
-                <span className="text-lg font-bold">PURE SOLE</span>
-              </div>
-              <p className="text-gray-400 text-sm">Premium sneaker & streetwear service.</p>
-            </div>
-            <div className="text-center md:text-right text-sm text-gray-400">
-              <p>Pure Sole is an independent personal shopping service.</p>
-              <p>Not affiliated with any brand. All products sourced from authorized retailers.</p>
+      <footer className="bg-black text-white py-12 border-t border-black">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-2xl font-black uppercase tracking-tighter mb-6">Pure Sole</h3>
+            <p className="text-gray-400 text-sm max-w-sm mb-6 uppercase tracking-wider leading-relaxed">
+              Premium curated sneakers and streetwear. Built for the entrepreneur, authenticated for the collector.
+            </p>
+            <div className="flex space-x-4">
+              {/* Social icons placeholder */}
+              <div className="w-8 h-8 bg-white/10 rounded-full"></div>
+              <div className="w-8 h-8 bg-white/10 rounded-full"></div>
+              <div className="w-8 h-8 bg-white/10 rounded-full"></div>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Pure Sole. All rights reserved.
+          <div>
+            <h4 className="font-bold uppercase text-xs tracking-widest mb-6">Navigation</h4>
+            <ul className="space-y-4 text-sm text-gray-400 uppercase tracking-wider">
+              <li><Link to="/products" className="hover:text-white transition-colors">Shop All</Link></li>
+              <li><Link to="/cart" className="hover:text-white transition-colors">My Cart</Link></li>
+              <li><Link to="/admin" className="hover:text-white transition-colors">Admin Portal</Link></li>
+            </ul>
           </div>
+          <div>
+            <h4 className="font-bold uppercase text-xs tracking-widest mb-6">Information</h4>
+            <ul className="space-y-4 text-sm text-gray-400 uppercase tracking-wider">
+              <li><a href="#" className="hover:text-white transition-colors">Authenticity</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Shipping</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-white/10 text-center text-[10px] text-gray-500 uppercase tracking-[0.2em]">
+          &copy; {new Date().getFullYear()} Pure Sole. All rights reserved.
         </div>
       </footer>
     </div>

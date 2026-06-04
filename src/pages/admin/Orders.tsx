@@ -1,58 +1,105 @@
 import React from 'react';
-import { Package } from 'lucide-react';
-
-const MOCK_ORDERS = [
-  { id: 'ORD-1001', customer: 'Alex M.', items: 2, total: 579.98, tax: 145.00, profit: 254.99, status: 'pending', date: '2025-06-03' },
-  { id: 'ORD-1000', customer: 'Jordan K.', items: 1, total: 349.99, tax: 87.50, profit: 82.49, status: 'shipped', date: '2025-06-02' },
-  { id: 'ORD-999', customer: 'Taylor R.', items: 3, total: 429.97, tax: 107.49, profit: 187.48, status: 'delivered', date: '2025-06-01' },
-  { id: 'ORD-998', customer: 'Sam W.', items: 1, total: 129.99, tax: 32.50, profit: 42.49, status: 'delivered', date: '2025-05-30' },
-  { id: 'ORD-997', customer: 'Casey P.', items: 2, total: 559.98, tax: 140.00, profit: 239.98, status: 'pending', date: '2025-05-28' },
-];
-
-const statusColors: Record<string, string> = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  shipped: 'bg-blue-100 text-blue-800',
-  delivered: 'bg-green-100 text-green-800',
-};
+import { 
+  Search, 
+  Filter, 
+  Truck, 
+  CheckCircle, 
+  Clock, 
+  MoreHorizontal, 
+  FileText,
+  Package
+} from 'lucide-react';
 
 const AdminOrders: React.FC = () => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-black mb-8">Orders</h1>
+  const orders = [
+    { id: 'ORD-9982', date: '2026-06-03 14:22', customer: 'James Wilson', email: 'j.wilson@example.com', total: '$1,800.00', status: 'Shipped', items: 2 },
+    { id: 'ORD-9981', date: '2026-06-03 12:45', customer: 'Sarah Miller', email: 'sarah.m@testmail.com', total: '$450.00', status: 'Processing', items: 1 },
+    { id: 'ORD-9980', date: '2026-06-02 21:10', customer: 'Michael Chen', email: 'mchen88@web.com', total: '$3,200.00', status: 'Delivered', items: 3 },
+    { id: 'ORD-9979', date: '2026-06-02 18:30', customer: 'Elena Rodriguez', email: 'elena.rod@provider.net', total: '$120.00', status: 'Pending', items: 1 },
+    { id: 'ORD-9978', date: '2026-06-02 16:15', customer: 'David Thompson', email: 'dt.sneakers@outlook.com', total: '$850.00', status: 'Shipped', items: 1 },
+  ];
 
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <table className="w-full">
-          <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Order</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Customer</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Items</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Total</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Tax (25%)</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Profit</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Status</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Date</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {MOCK_ORDERS.map(order => (
-              <tr key={order.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium text-black">{order.id}</td>
-                <td className="px-6 py-4 text-sm text-gray-700">{order.customer}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">{order.items}</td>
-                <td className="px-6 py-4 font-medium text-black">${order.total.toFixed(2)}</td>
-                <td className="px-6 py-4 text-sm text-amber-600">${order.tax.toFixed(2)}</td>
-                <td className="px-6 py-4 text-sm text-green-600 font-medium">${order.profit.toFixed(2)}</td>
-                <td className="px-6 py-4">
-                  <span className={`inline-block text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[order.status] || 'bg-gray-100'}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{order.date}</td>
+  return (
+    <div className="space-y-8">
+      {/* Search & Filter */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search orders, customers, IDs..."
+            className="w-full pl-10 pr-4 py-2 border border-black text-xs uppercase tracking-widest focus:outline-none"
+          />
+        </div>
+        <div className="flex gap-2">
+          <button className="flex items-center gap-2 border border-black px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
+            <Filter className="w-4 h-4" /> Filter By Status
+          </button>
+        </div>
+      </div>
+
+      {/* Orders Table */}
+      <div className="bg-white border border-black overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-black bg-gray-50">
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Order</th>
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Customer</th>
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Items</th>
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Total</th>
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Status</th>
+                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-500"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {orders.map((order) => (
+                <tr key={order.id} className="hover:bg-gray-50/50 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs font-black uppercase tracking-tight">{order.id}</span>
+                      <span className="text-[10px] text-gray-400 font-medium">{order.date}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold uppercase tracking-tight">{order.customer}</span>
+                      <span className="text-[10px] text-gray-400">{order.email}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-xs font-bold">{order.items} items</td>
+                  <td className="px-6 py-4 text-xs font-black">{order.total}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[10px] font-bold uppercase px-2 py-1 border flex items-center gap-1 ${
+                        order.status === 'Delivered' ? 'border-green-600 text-green-600 bg-green-50' :
+                        order.status === 'Shipped' ? 'border-blue-600 text-blue-600 bg-blue-50' :
+                        order.status === 'Processing' ? 'border-yellow-600 text-yellow-600 bg-yellow-50' :
+                        'border-gray-400 text-gray-400 bg-gray-50'
+                      }`}>
+                        {order.status === 'Delivered' ? <CheckCircle className="w-3 h-3" /> : 
+                         order.status === 'Shipped' ? <Truck className="w-3 h-3" /> :
+                         order.status === 'Processing' ? <Package className="w-3 h-3" /> :
+                         <Clock className="w-3 h-3" />}
+                        {order.status}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex justify-end gap-2">
+                      <button className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest border border-black px-2 py-1 hover:bg-black hover:text-white transition-all">
+                        <FileText className="w-3 h-3" /> Details
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 transition-all">
+                        <MoreHorizontal className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

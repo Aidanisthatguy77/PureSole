@@ -1,51 +1,77 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle, Package } from 'lucide-react';
+import { useParams, Link } from 'react-router-dom';
+import { CheckCircle, Package, Truck, Calendar, ArrowRight } from 'lucide-react';
 
 const OrderConfirmation: React.FC = () => {
+  const { id } = useParams();
+
   return (
-    <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-      <div className="bg-white border border-gray-200 rounded-lg p-12">
-        <CheckCircle className="h-16 w-16 mx-auto text-green-500 mb-6" />
-        <h1 className="text-3xl font-bold text-black mb-4">Order Confirmed!</h1>
-        <p className="text-gray-500 mb-6">
-          Thank you for your purchase. Your order has been placed and is being processed.
+    <div className="bg-white min-h-screen py-20">
+      <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="flex justify-center mb-8">
+          <div className="w-20 h-20 bg-black text-white rounded-none flex items-center justify-center">
+            <CheckCircle className="w-10 h-10" />
+          </div>
+        </div>
+        
+        <h1 className="text-4xl font-black uppercase tracking-tighter mb-4">Order Confirmed</h1>
+        <p className="text-gray-500 uppercase text-xs tracking-[0.2em] mb-12">
+          Order #{id} &bull; We've sent a confirmation email to you.
         </p>
 
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8 text-left">
-          <div className="flex items-center gap-2 mb-4">
-            <Package className="h-5 w-5 text-gray-400" />
-            <span className="font-semibold text-black">Order #ORD-1002</span>
-          </div>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-500">Status</span>
-              <span className="text-yellow-600 font-medium">Pending</span>
+        <div className="bg-gray-50 border border-black p-8 text-left mb-12">
+          <h2 className="text-sm font-black uppercase tracking-widest mb-6 border-b border-black pb-4">Next Steps</h2>
+          
+          <div className="space-y-8">
+            <div className="flex gap-4">
+              <Package className="w-6 h-6 flex-shrink-0" />
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-tight mb-1">Authentication</h3>
+                <p className="text-xs text-gray-500 uppercase tracking-wide leading-relaxed">
+                  Your items are being shipped to our center for professional authentication.
+                </p>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Estimated Delivery</span>
-              <span className="text-black">5-7 business days</span>
+            
+            <div className="flex gap-4">
+              <Truck className="w-6 h-6 flex-shrink-0" />
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-tight mb-1">Express Shipping</h3>
+                <p className="text-xs text-gray-500 uppercase tracking-wide leading-relaxed">
+                  Once verified, we'll ship your order via DHL Express. You'll receive a tracking number.
+                </p>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Payment</span>
-              <span className="text-black">Completed</span>
+
+            <div className="flex gap-4">
+              <Calendar className="w-6 h-6 flex-shrink-0" />
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-tight mb-1">Estimated Delivery</h3>
+                <p className="text-xs text-gray-500 uppercase tracking-wide leading-relaxed">
+                  3-5 Business Days
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/products"
-            className="inline-flex items-center justify-center gap-2 bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
+          <Link 
+            to="/products" 
+            className="bg-black text-white px-10 py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-black border border-black transition-all flex items-center justify-center"
           >
-            Continue Shopping
+            Continue Shopping <ArrowRight className="ml-2 w-5 h-5" />
           </Link>
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center gap-2 border border-gray-200 text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition"
-          >
-            Back to Home
-          </Link>
+          <button className="border border-black px-10 py-4 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+            Track Order
+          </button>
+        </div>
+        
+        <div className="mt-20 pt-12 border-t border-gray-100">
+          <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] leading-loose">
+            Questions about your order? Contact our support team at support@puresole.com<br />
+            Our specialists are available 24/7.
+          </p>
         </div>
       </div>
     </div>

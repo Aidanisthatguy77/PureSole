@@ -1,113 +1,144 @@
-import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Shield, CreditCard, FileText, Building, PiggyBank } from 'lucide-react';
+import React from 'react';
+import { 
+  Map, 
+  CheckCircle2, 
+  Circle, 
+  Lock, 
+  ArrowRight, 
+  Award,
+  ChevronDown,
+  ChevronRight
+} from 'lucide-react';
 
-const blueprintItems = [
-  {
-    id: 'ein',
-    title: 'EIN (Employer Identification Number)',
-    icon: FileText,
-    button: 'Get Your EIN Free',
-    url: 'https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online',
-    description: `A free business ID number from the IRS. Basically a Social Security Number for Pure Sole specifically.
-Why it matters: Protects your personal SSN from suppliers, payment processors and customers. Makes Pure Sole a real recognized business entity.
-When to get it: Get your EIN when Pure Sole hits $5,000 in total revenue.`,
-  },
-  {
-    id: 'llc',
-    title: 'LLC (Limited Liability Company)',
-    icon: Building,
-    button: 'Form Pure Sole LLC',
-    url: 'https://www.sos.state.oh.us',
-    description: `An LLC legally separates YOU from Pure Sole. Without it you and Pure Sole are the same thing legally.
-When to get it: Form your LLC when Pure Sole hits $10,000 in total revenue.
-Protection: Customer sues? They can only go after business assets, not your personal savings.`,
-  },
-  {
-    id: 'scorp',
-    title: 'S-Corp Election',
-    icon: Shield,
-    button: 'Learn About S-Corp',
-    url: 'https://www.irs.gov',
-    description: `When Pure Sole grows big enough you can elect S-Corp tax status which significantly reduces your self employment tax burden.
-Consider when: Pure Sole consistently makes $50,000+ per year.
-Savings: Potentially cut self-employment tax by half, saving $7,000+ per year.`,
-  },
-  {
-    id: 'business-card',
-    title: 'Business Credit Card',
-    icon: CreditCard,
-    button: 'Apply For Business Credit',
-    url: 'https://www.businesscreditcards.com',
-    description: `A credit card specifically for Pure Sole expenses that builds business credit history.
-How it works: Buy product on business card, customer pays you, pay off card same day. Earn points on every transaction while building business credit.`,
-  },
-  {
-    id: 'roth-ira',
-    title: 'Roth IRA',
-    icon: PiggyBank,
-    button: 'Open Your Roth IRA',
-    url: 'https://www.fidelity.com',
-    description: `A retirement account where your money grows completely tax free forever. Pay taxes on money going IN but never on money coming OUT.
-Max contribution: $7,000/year (2024). Start with as little as $1 at Fidelity.`,
-  },
-];
-
-const AdminBlueprint: React.FC = () => {
-  const [expanded, setExpanded] = useState<string | null>(null);
+const Blueprint: React.FC = () => {
+  const roadmap = [
+    {
+      id: 1,
+      title: 'Foundation',
+      status: 'Completed',
+      steps: [
+        { name: 'Obtain EIN from IRS', done: true },
+        { name: 'Register Single-Member LLC', done: true },
+        { name: 'Open Business Bank Account', done: true },
+        { name: 'Initial Inventory Sourcing', done: true },
+      ]
+    },
+    {
+      id: 2,
+      title: 'Operating System',
+      status: 'In Progress',
+      steps: [
+        { name: 'Launch Pure Sole OS', done: true },
+        { name: 'Connect Autotropolis HQ Sync', done: true },
+        { name: 'Set up 25% Tax Auto-Withhold', done: true },
+        { name: 'Configure Roth IRA Profit Split', done: false },
+      ]
+    },
+    {
+      id: 3,
+      title: 'Scale & Optimization',
+      status: 'Locked',
+      steps: [
+        { name: 'Elect S-Corp Status (Revenue > $50k)', done: false },
+        { name: 'Apply for Tier 1 Business Credit', done: false },
+        { name: 'Automated Expense Reconciliation', done: false },
+        { name: 'Staffing for Order Fulfillment', done: false },
+      ]
+    },
+    {
+      id: 4,
+      title: 'Financial Freedom',
+      status: 'Locked',
+      steps: [
+        { name: 'Max Out 2026 Roth IRA Contribution', done: false },
+        { name: 'Establish 6-Month OpEx Runway', done: false },
+        { name: 'Diversified Asset Allocation', done: false },
+      ]
+    }
+  ];
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-black mb-2">The Blueprint</h1>
-      <p className="text-gray-500 mb-8">Your complete roadmap for protecting and growing Pure Sole as your business scales</p>
-
-      <div className="space-y-6 mb-8">
-        {blueprintItems.map(item => {
-          const isOpen = expanded === item.id;
-          const Icon = item.icon;
-          return (
-            <div key={item.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-              <button
-                onClick={() => setExpanded(isOpen ? null : item.id)}
-                className="w-full bg-gray-50 hover:bg-gray-100 px-6 py-4 flex items-center justify-between transition"
-              >
-                <div className="flex items-center gap-3">
-                  <Icon className="h-5 w-5 text-gray-600" />
-                  <h3 className="font-bold text-lg text-left text-black">{item.title}</h3>
-                </div>
-                {isOpen ? <ChevronDown className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
-              </button>
-              {isOpen && (
-                <div className="p-6 bg-white space-y-4">
-                  <p className="text-gray-700 text-sm whitespace-pre-wrap leading-relaxed">{item.description}</p>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 w-full justify-center bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition text-sm"
-                  >
-                    {item.button}
-                  </a>
-                </div>
-              )}
-            </div>
-          );
-        })}
+    <div className="max-w-4xl mx-auto space-y-12 py-6">
+      <div className="text-center space-y-4">
+        <h2 className="text-4xl font-black uppercase tracking-tighter">Business Blueprint</h2>
+        <p className="text-xs text-gray-500 uppercase tracking-[0.3em] font-medium">The roadmap from enthusiast to entrepreneur</p>
       </div>
 
-      {/* Timeline */}
-      <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-        <h3 className="font-bold text-black mb-2">Timeline for Pure Sole Growth</h3>
-        <p className="text-sm text-gray-700 mb-4">Use The Blueprint as a checklist as Pure Sole grows:</p>
-        <div className="space-y-2 text-sm">
-          <p><strong>📍 Start:</strong> Launch Pure Sole store</p>
-          <p><strong>📍 $5,000:</strong> Get your EIN (protects your SSN)</p>
-          <p><strong>📍 $10,000:</strong> Form your LLC (protects your personal assets)</p>
-          <p><strong>📍 $50,000:</strong> Consider S-Corp election (save on self-employment tax)</p>
-          <p><strong>💰 Ongoing:</strong> Roth IRA, Business Credit Card, High Yield Savings for wealth building</p>
+      <div className="space-y-6">
+        {roadmap.map((phase, idx) => (
+          <div 
+            key={phase.id} 
+            className={`border ${phase.status === 'Locked' ? 'border-gray-100 bg-gray-50/30' : 'border-black bg-white'} p-8 transition-all`}
+          >
+            <div className="flex justify-between items-center mb-8">
+              <div className="flex items-center gap-4">
+                <span className={`text-lg font-black w-8 h-8 flex items-center justify-center border ${
+                  phase.status === 'Completed' ? 'bg-black text-white border-black' : 
+                  phase.status === 'In Progress' ? 'bg-white text-black border-black border-2' : 
+                  'bg-white text-gray-300 border-gray-100'
+                }`}>
+                  {phase.id}
+                </span>
+                <div>
+                  <h3 className={`text-xl font-black uppercase tracking-tight ${phase.status === 'Locked' ? 'text-gray-300' : 'text-black'}`}>
+                    {phase.title}
+                  </h3>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${
+                    phase.status === 'Completed' ? 'text-green-600' : 
+                    phase.status === 'In Progress' ? 'text-blue-600' : 
+                    'text-gray-300'
+                  }`}>
+                    {phase.status}
+                  </span>
+                </div>
+              </div>
+              {phase.status === 'Locked' ? <Lock className="w-5 h-5 text-gray-300" /> : <ChevronDown className="w-5 h-5" />}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+              {phase.steps.map((step, sIdx) => (
+                <div key={sIdx} className="flex items-center gap-3">
+                  {step.done ? (
+                    <CheckCircle2 className={`w-4 h-4 ${phase.status === 'Locked' ? 'text-gray-200' : 'text-black'}`} />
+                  ) : (
+                    <Circle className={`w-4 h-4 ${phase.status === 'Locked' ? 'text-gray-100' : 'text-gray-300'}`} />
+                  )}
+                  <span className={`text-xs font-medium uppercase tracking-widest ${
+                    step.done ? (phase.status === 'Locked' ? 'text-gray-200' : 'text-black') : 
+                    (phase.status === 'Locked' ? 'text-gray-200' : 'text-gray-400')
+                  }`}>
+                    {step.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {phase.status === 'In Progress' && (
+              <div className="mt-10 pt-8 border-t border-gray-100 flex justify-between items-center">
+                <p className="text-[10px] text-gray-500 uppercase tracking-widest italic">
+                  Complete the "Roth IRA Profit Split" to unlock Phase 3.
+                </p>
+                <button className="flex items-center gap-2 bg-black text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-gray-900 transition-all">
+                  Take Action <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-black text-white p-12 text-center border border-black overflow-hidden relative">
+        <Award className="w-20 h-20 text-white/10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[3]" />
+        <div className="relative z-10">
+          <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">Master Entrepreneur Status</h3>
+          <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] max-w-md mx-auto leading-loose">
+            Reach phase 4 to achieve complete financial independence and business automation. 
+            The system works so you don't have to.
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default AdminBlueprint;
+export default Blueprint;
