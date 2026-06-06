@@ -43,6 +43,11 @@ app.use('/api/config', configRoutes);
 app.use('/api/autotropolis', autotropolisRoutes);
 app.use('/api/agent', agentRoutes);
 
+// Health check for Render
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Setup Endpoint
 app.post('/api/setup', (req, res) => {
   try {

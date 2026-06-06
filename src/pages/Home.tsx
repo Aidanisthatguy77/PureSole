@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, ArrowRight, TrendingUp, Wallet, BarChart3 } from 'lucide-react';
-
-const MOCK_FEATURED = [
-  { id: '1', name: 'Air Jordan 1 Retro High OG', category: 'Sneakers', price: 349.99, sizes: '7-14' },
-  { id: '2', name: 'Nike Dunk Low Retro', category: 'Sneakers', price: 279.99, sizes: '6-13' },
-  { id: '3', name: 'Champion Reverse Weave Hoodie', category: 'Apparel', price: 129.99, sizes: 'S-3XL' },
-  { id: '4', name: 'New Era 59FIFTY Cap', category: 'Accessories', price: 54.99, sizes: 'OSFM' },
-];
+import { Shield, ArrowRight, Package, BarChart3 } from 'lucide-react';
 
 const Home: React.FC = () => {
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/products').then(r => r.json()).then(setProducts).catch(() => {});
+  }, []);
+
+  const featured = products.slice(0, 4);
+
   return (
     <div>
       {/* Disclaimer Banner */}
@@ -34,20 +35,12 @@ const Home: React.FC = () => {
               Curated, authenticated, and sourced from authorized retailers. 
               Skip the hunt — buy with confidence from your personal boutique.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-              >
-                Shop Collection <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition"
-              >
-                Browse Collection
-              </Link>
-            </div>
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+            >
+              Shop Collection <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -62,9 +55,9 @@ const Home: React.FC = () => {
               <p className="text-gray-600 text-sm">Every product sourced from authorized retailers. No fakes, ever.</p>
             </div>
             <div className="text-center p-6">
-              <TrendingUp className="h-10 w-10 mx-auto mb-4 text-black" />
+              <Package className="h-10 w-10 mx-auto mb-4 text-black" />
               <h3 className="font-bold text-lg mb-2">Curated Collection</h3>
-              <p className="text-gray-600 text-sm">Hand-picked sneakers and streetwear you won't find everywhere.</p>
+              <p className="text-gray-600 text-sm">Hand-picked sneakers and streetwear added by the owner.</p>
             </div>
             <div className="text-center p-6">
               <BarChart3 className="h-10 w-10 mx-auto mb-4 text-black" />
@@ -80,29 +73,40 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-3xl font-bold text-black">Featured</h2>
-            <Link to="/products" className="text-sm font-medium text-gray-600 hover:text-black flex items-center gap-1">
-              View All <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MOCK_FEATURED.map(product => (
-              <Link
-                key={product.id}
-                to={`/product/${product.id}`}
-                className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition"
-              >
-                <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">Product Image</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{product.category}</p>
-                  <h3 className="font-semibold text-black group-hover:underline mb-1">{product.name}</h3>
-                  <p className="text-sm text-gray-500">{product.sizes}</p>
-                  <p className="text-lg font-bold text-black mt-2">${product.price.toFixed(2)}</p>
-                </div>
+            {products.length > 0 && (
+              <Link to="/products" className="text-sm font-medium text-gray-600 hover:text-black flex items-center gap-1">
+                View All <ArrowRight className="h-4 w-4" />
               </Link>
-            ))}
+            )}
           </div>
+          {featured.length === 0 ? (
+            <div className="text-center py-16 bg-gray-50 rounded-lg border border-gray-200">
+              <Package className="h-16 w-16 mx-auto text-gray-200 mb-4" />
+              <p className="text-gray-400 font-medium">No products available yet</p>
+              <p className="text-sm text-gray-400 mt-1">Products will appear here once the owner adds them</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featured.map(product => (
+                <Link
+                  key={product.id}
+                  to={`/product/${product.id}`}
+                  className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition"
+                >
+                  <div className="aspect-square bg-gray-50 flex items-center justify-center border-b border-gray-100">
+                    <Package className="h-10 w-10 text-gray-300" />
+                  </div>
+                  <div className="p-4">
+                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">{product.category || 'General'}</p>
+                    <h3 className="font-semibold text-black group-hover:underline mb-1">{product.name}</h3>
+                    <p className="text-lg font-bold text-black mt-2">
+                      ${product.price ? Number(product.price).toFixed(2) : '0.00'}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -112,7 +116,6 @@ const Home: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Wallet className="h-5 w-5" />
                 <span className="text-lg font-bold">PURE SOLE</span>
               </div>
               <p className="text-gray-400 text-sm">Premium sneaker & streetwear service.</p>

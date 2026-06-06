@@ -1,0 +1,9 @@
+{
+  "version": "2",
+  "buildCommand": "npm install && npx vite build",
+  "startCommand": "node server/index.js",
+  "installCommand": "npm install",
+  "env": {
+    "PORT": "10000"
+  }
+}
