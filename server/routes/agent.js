@@ -68,7 +68,7 @@ Keep responses brief but actionable.`;
         timestamp: new Date().toISOString(),
         context: { products: productCount, orders: orderCount, revenue: totalRevenue, taxWithheld: totalTax }
       });
-    } catch (err: any) {
+    } catch (err) {
       return res.status(500).json({ error: `Claude API call failed: ${err.message}` });
     }
   }
